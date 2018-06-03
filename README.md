@@ -3,16 +3,16 @@
 coperate
 ========
 
-The goal of `coperate` is to facilitate the modelling of parametric copula-based models. It does this by
+The goal of `coperate` is to facilitate the modelling of parametric copula-based models. Resolving a copula model involves more than one step such as fitting a maximum likelihood model. It more often first requires choosing appropriate parametric copula families, their orientations, and sometimes even restricting the canonical parameter spaces.
+
+`coperate` cooperates with you to do this by
 
 1.  providing an extensive built-in selection of parametric copula models;
 2.  creating user-defined parametric copula families (optionally);
 3.  operating on the copula parameter space to restrict, relax, and alter the space; and
 4.  computing distributional quantities from a copula model,
 
-in a way that is "cooperative" with the user.
-
-This package intentionally does not include model-fitting functionality, but is intended to be useful as a back-end.
+This package intentionally does not include model-fitting functionality, such as MLE and CNQR, but is intended to be useful as a back-end for such fitting.
 
 Installation
 ------------
