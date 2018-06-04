@@ -23,3 +23,22 @@ You can install coperate from github with:
 # install.packages("devtools")
 devtools::install_github("vincenzocoia/coperate")
 ```
+
+Examples
+--------
+
+Fully resolved copula:
+
+    my_cop <- bicop("gum", cpar=1.3, dep=+1, taildep="upper")
+    dcop(my_cop, u, v)
+
+Not fully resolved:
+
+    my_cop <- bicop("gum")
+    dcop(my_cop, u, v)
+
+    > Error: copula class `my_cop` not resolved to a single copula. Cannot evaluate.
+
+    my_cop %>%
+        restrict(cpar=1.3, dep=1, taildep="upper") %>%
+        dcop(u, v)
