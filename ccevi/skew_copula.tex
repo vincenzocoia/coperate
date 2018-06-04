@@ -1,0 +1,141 @@
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+
+\title{CCEVI of Skew Copula}
+\author{Vincenzo Coia}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+\newtheorem{theorem}{Theorem}
+
+\def\Chat{{\widehat C}}
+\def\Sk{\mathrm{\textbf{Skew}}}
+\def\a{\alpha}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+\maketitle
+
+\section{Skew Copulas}
+\label{sec:ccevi-skew}
+
+Bivariate copulas can be transformed to have a skew, adding permutation asymmetry to the copula. 
+A skew transformation to a copula $C$ for parameter $\alpha\in[0,1]$ is
+\begin{equation}
+\label{eq:cop_skew}
+C_{\Sk}(u,v)=C(u,v^{1-\alpha})v^{\alpha}
+\end{equation}
+for $(u,v)\in[0,1]^2$, where larger values of $\alpha$ correspond to a larger skew.
+
+\begin{theorem}
+\label{prop:ccevi_skew}
+Suppose a bivariate copula $C$ and its reflection $\Chat$ have CCEVI's $\xi_C>0$ and $\xi_{\Chat}>0$, respectively. Then the skew copula defined in \eqref{eq:cop_skew} for $\alpha\in[0,1]$ has a CCEVI of 1 (or $\xi_C$ if $\alpha=0$), and the reflection skew copula has CCEVI
+\begin{equation}
+\label{eq:ccevi_skew_refl}
+\frac{1}{\a + (1-\a)(1/\xi_{\Chat})}.
+\end{equation}
+\end{theorem}
+
+See Appendix~\ref{app:pfs-skew} for a proof.
+
+Notice that the reciprocal CCEVI of the skew reflection copula in~\eqref{eq:ccevi_skew_refl} is an interpolation of 1 and the reciprocal CCEVI of the original skew copula.
+
+
+\subsection{Proof of CCEVI of Skew Copula Class}
+\label{app:pfs-skew}
+
+Here, we present a proof of Proposition~\ref{prop:ccevi_skew}, first for the (non-reflected) skew copula, then for the reflected. 
+
+First, recall the expansion
+\begin{equation}
+(1-t^{-1})^{\a} 
+    = 1 - \a t^{-1} + \frac{\a(\a-1)}{2!}t^{-2} + O(t^{-3})
+    = 1 - t^{-1}O(1),
+\end{equation}
+valid for $t$ near infinity.
+Now, differentiate the skew copula with respect to the first argument to obtain the copula conditional distribution. Then substitute $v=1-1/t$ and send $t\rightarrow\infty$:
+\begin{align}
+1 - C_{\Sk, 2|1}(v|u) 
+    &=    1 - C_{2|1}(v^{1-\a} | u) v^{\a} \\
+    &=    1 - C_{2|1}(1-t^{-1}O(1)|u)
+                       (1-t^{-1}O(1)) \\
+    &\sim 1 - (1 - \ell(t)t^{-1/\xi_C})(1-t^{-1}) \\
+    &=    t^{-1} + O(t^{-1}),
+\end{align}
+where $\ell$ is slowly varying at infinity. 
+The CCEVI of the skew copula is therefore 1.
+
+The reflected skew copula is
+\begin{equation}
+\Chat_{\Sk}(u,v) =
+    u + v - 1 + C(1-u, (1-v)^{1-\a}) (1-v)^{\a}.
+\end{equation}
+The trick is to write the copula conditional distribution in terms of the reflected original copula, again substituting $v=1-1/t$ and sending $t\rightarrow\infty$:
+\begin{align}
+1 - \Chat_{\Sk,2|1}(v|u)
+    &=    (1-v)^{\a} C_{2|1}((1-v)^{1-\a}|1-u)  \\
+    &=    t^{-\a} C_{2|1}(t^{-(1-\a)}|1-u) \\
+    &=    t^{-\a} \left(1 - \Chat_{2|1} (1 - t^{-(1-\a)} | u) \right) \\
+    &\sim t^{-\a} \hat{\ell}(t) \left(t^{1-\a}\right) ^ {-1/\xi_{\Chat}(u)} \\
+    &=    \hat{\ell}(t) t^{-1/\xi_{\widehat{\Sk}}(u)},
+\end{align}
+where $\hat{\ell}$ is slowly varying at infinity, and 
+\begin{equation}
+\xi_{\widehat{\Sk}}(u)
+    = \frac{1}{\a + (1-\a)(1/\xi_{\Chat}(u))}
+\end{equation}
+is the CCEVI of the reflected skew copula.
+
+
+\end{document}
