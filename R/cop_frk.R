@@ -3,7 +3,6 @@
 #' These objects contain information about bivariate
 #' parametric copula families.
 #'
-#' @aliases cop_frk, cop_gum
 #' @details
 #' Each is a list containing the following components:
 #' \describe{
@@ -19,8 +18,8 @@
 #'
 #' These objects rely heavily on functions from the package CopulaModel,
 #' hence why coperate Depends on this package.
-NULL
-
+#' @rdname cop
+#' @export
 cop_frk <- list(
     pcop      = pfrk,
     dcop      = dfrk,
@@ -33,6 +32,8 @@ cop_frk <- list(
                            minor_axis = 0)
 )
 
+#' @rdname cop
+#' @export
 cop_gum <- list(
     pcop      = pgum,
     dcop      = dgum,
