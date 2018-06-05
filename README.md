@@ -47,6 +47,15 @@ cop\_ig and cop\_igl have precision problems that need fixing.
 -   Implement *lower* bound for Newton-Raphson in helper function: just replace p with sqrt(p) and I'll get a lower bound. Why? Does it solve the problem of inaccuracies when k is small?
 -   The cnstr\_H function's inverse could probably use improvements through Newton-Raphson, similar to what I did with the helper function.
 
+Building a model could look something like this:
+
+    copula_model(family %in% c("Frank", "Gumbel"))
+    copula_model(family %in% c("Frank", "Gumbel"), dependence=1)
+    copula_model(dependence=1, minor=1, ncpar=1) %>% 
+        relax(family="BB1") # Adds BB1 family
+    ## Alternatively:
+    copula_model((dependence=1, minor=1, ncpar=1) | family="BB1")
+
 2. creating user-defined parametric copula families (optionally);
 -----------------------------------------------------------------
 
