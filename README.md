@@ -177,3 +177,20 @@ Future Ideas (hopefully not so distant)
 -   Instead of fitting the entire gamut of copula families, pre-select them according to some properties. Choose candidate copula families that are appropriate for the data.
     -   Based on tail dependence is one idea.
     -   Based on symmetry is another.
+
+Eventually, downstream packages/functions will exist, something like `mle()`, and `cnqr()`, so that we can just do:
+
+    my_model %>%
+        fit(mle, data=my_dat)
+
+Better, something like
+
+    my_model %>%
+        group_by(family) %>%
+        fit(mle, data=my_dat)
+
+...which fits to each group. Can then output things about the fitted models to aid in model selection, like adding the following pipe to the chain:
+
+    %>% mutate(nllh, ktau=..., ncpar=...)
+
+...to assist in model selection.
