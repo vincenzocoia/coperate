@@ -14,6 +14,14 @@ The goal of `coperate` is to facilitate the modelling of parametric copula-based
 
 This package intentionally does not include model-fitting functionality, such as MLE and CNQR, but is intended to be useful as a back-end for such fitting.
 
+The entities that this package deal with can be usefully categorized as *copula properties*, *parameters*, and *operations*.
+
+-   **Copula properties**: A functional that applies to a single copula. Things like kendall's tau, CCEVI, tail dependence, even the cdf at a point can be considered a property. Not all properties uniquely define a copula, but the "canonical" ones will ought to be distribution-related functions. Ideally, other properties will be defined, like kendall's tau (even density), but could be calculated if need be
+-   **Parameters**: Variables that disambiguate a copula. Includes the family name, canonical copula parameters, and symmetries. Might include an indication if the copula has been modified in any way, such as adding a skew -- perhaps by modifying the copula family name (such as "1-skew Frank"), but even better, in a way that doesn't require defining an entirely new class.
+-   **Operations**: include things like relaxing, shrinking, or mutating the parameter space. Also possibly more obscure things like stitching copulas together, as in the DJ paper.
+
+This package cannot include a comprehensive list of any one of these. The user should be allowed to make their own. But this package ought to start with the basics of these.
+
 0. Copula class
 ---------------
 
