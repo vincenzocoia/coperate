@@ -27,9 +27,10 @@ cop_frk <- list(
     pcondcop  = list(pcondfrk, pcondfrk),
     qcondcop  = list(qcondfrk, qcondfrk),
     cparspace = data.frame(theta=c(-Inf, Inf)),
-    symmspace = data.frame(direction  = c(1, -1),
-                           major_axis = 0,
-                           minor_axis = 0)
+    symmspace = expand.grid(family     = "Frank",
+                            direction  = c(1, -1),
+                            major_axis = 0,
+                            minor_axis = 0)
 )
 
 #' @rdname cop
@@ -41,7 +42,8 @@ cop_gum <- list(
     pcondcop  = list(pcondgum, pcondgum),
     qcondcop  = list(qcondgum, qcondgum),
     cparspace = data.frame(theta=c(-Inf, Inf)),
-    symmspace = expand.grid(direction  = c(1, -1),
+    symmspace = expand.grid(family     = "Gumbel",
+                            direction  = c(1, -1),
                             major_axis = c(1, -1),
                             minor_axis = 0)
 )
