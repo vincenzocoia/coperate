@@ -48,3 +48,18 @@ cop_gum <- list(
                             minor_axis = 0)
 )
 
+## Global lists
+
+all_symms <- rbind(cop_frk$symmspace, cop_gum$symmspace)
+
+fam_properties <- data.frame(
+    family=c("Frank", "Gumbel"),
+    abbr_name=c("frk", "gum"),
+    upper_tail_dep=c(0,1),
+    lower_tail_dep=c(0,0))
+
+fam_cparspace <- list(
+    Frank = data.frame(theta=c(-Inf,Inf)),
+    Gumbel= data.frame(theta=c(1,Inf)),
+    IG    = data.frame(theta=c(0,Inf), k=c(1,Inf))
+)
