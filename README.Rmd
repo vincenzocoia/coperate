@@ -29,12 +29,12 @@ This package intentionally does not include model-fitting functionality, such as
 The entities that this package deal with can be usefully categorized as _copula properties_, _parameters_, and _operations_. 
 
 - __Copula properties__: A functional that applies to a single copula. Things like kendall's tau, CCEVI, tail dependence, even the cdf at a point can be considered a property. Not all properties uniquely define a copula, but the "canonical" ones will ought to be distribution-related functions. Ideally, other properties will be defined, like kendall's tau (even density), but could be calculated if need be
-- __Parameters__: Variables that disambiguate a copula. Includes the family name, canonical copula parameters, and symmetries. Might include an indication if the copula has been modified in any way, such as adding a skew -- perhaps by modifying the copula family name (such as "1-skew Frank"), but even better, in a way that doesn't require defining an entirely new class. 
+- __Parameters__: Variables that disambiguate a copula. Includes family name, canonical parameters, symmetries, and possibly extensions. A _family_ is a collection of copulas continuously related, indexed by a continuous set of _canonical parameters_. This family might be _extended_ by some parametric transformation -- for example, adding a skew, or considering the interpolated version of a DJ copula family. A _symmetry_ is a re-orientation of a copula by reflection and/or permutation.
 - __Operations__: include things like relaxing, shrinking, or mutating the parameter space. Also possibly more obscure things like stitching copulas together, as in the DJ paper. 
 
 This package cannot include a comprehensive list of any one of these. The user should be allowed to make their own. But this package ought to start with the basics of these. 
 
-## 0. Copula class
+## 0\. Copula class
 
 Define a `bicop` object (start bivariate!), which represents a (collection of?) copula models.
 
@@ -55,7 +55,7 @@ Why not one-family-at-a-time? Because families are an artificial construct. We j
         - list of 2; entry j is the distribution of j (given the others). This paves the way for higher dimensional copulas.
 
 
-## 1. providing an extensive built-in selection of parametric copula models;
+## 1\. providing an extensive built-in selection of parametric copula models;
 
 Pre-defined copula families:
 
@@ -78,7 +78,7 @@ copula_model(dependence=1, minor=1, ncpar=1) %>%
 copula_model((dependence=1, minor=1, ncpar=1) | family="BB1")
 ```
 
-## 2. creating user-defined parametric copula families (optionally);
+## 2\. creating user-defined parametric copula families (optionally);
 
 - Allow users to make a parametric copula family by specifying the generator of a Gaussian, DJ, or interpolated DJ copula class.
 - Allow users to make their own from a clean slate (requires more from the user).
@@ -93,7 +93,7 @@ cop <- copula_gauss(d)
 cop <- copula_t(d)
 ```
 
-## 3. operating on the copula parameter space to restrict, relax, and alter the space;
+## 3\. operating on the copula parameter space to restrict, relax, and alter the space;
 
 The idea here is to tailor your copula parameter space to the more obvious properties of your data, before hitting it with heavy-duty machinery like MLE or CNQR. For example, if your data are positively dependent and has upper tail dependence, then we know what copula families are appropriate, and the reflection. This is also useful for interactive-type analyses, because it allows you to easily modify the parameter space to explore. 
 
@@ -131,7 +131,7 @@ Was also thinking "expand" instead of "relax", but I think the latter makes more
 Could also do "resolve" instead of "restrict" -- although the former may suggest resolving to one copula. 
 
 
-## 4. computing distributional quantities from a copula model,
+## 4\. computing distributional quantities from a copula model,
 
 - pdf, cdf, densities, quantiles, mean, rosenblatt transform (?). Joint, conditional, or marginal. 
     - dcop, pcop, dcop(log=FALSE)
