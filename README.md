@@ -14,11 +14,12 @@ The goal of `coperate` is to facilitate the modelling of parametric copula-based
 
 This package intentionally does not include model-fitting functionality, such as MLE and CNQR, but is intended to be useful as a back-end for such fitting.
 
-The entities that this package deal with can be usefully categorized as *copula properties*, *parameters*, and *operations*.
+The entities that this package deal with can be usefully categorized as *copulas*, *parameters*, and *operations*.
 
--   **Copula properties**: A functional that applies to a single copula. Things like kendall's tau, CCEVI, tail dependence, even the cdf at a point can be considered a property. Not all properties uniquely define a copula, but the "canonical" ones will ought to be distribution-related functions. Ideally, other properties will be defined, like kendall's tau (even density), but could be calculated if need be
--   **Parameters**: Variables that disambiguate a copula. Includes family name, canonical parameters, symmetries, and possibly extensions. A *family* is a collection of copulas continuously related, indexed by a continuous set of *canonical parameters*. This family might be *extended* by some parametric transformation -- for example, adding a skew, or considering the interpolated version of a DJ copula family. A *symmetry* is a re-orientation of a copula by reflection and/or permutation.
--   **Operations**: include things like relaxing, shrinking, or mutating the parameter space. Also possibly more obscure things like stitching copulas together, as in the DJ paper.
+-   **Copulas**: A bundle of properties that describe a copula. Things like kendall's tau, CCEVI, tail dependence, even the cdf at a point can be considered a property. Not all properties uniquely define a copula, but the "canonical" ones will ought to be distribution-related functions. Ideally, other properties will be defined, like kendall's tau (even density), but could be calculated if need be
+-   **Parameters**: Variables that disambiguate a copula. Includes family name, canonical parameters, symmetries~~, and possibly extensions~~. A *family* is a collection of copulas continuously related, indexed by a continuous set of *canonical parameters*. ~~This family might be *extended* by some parametric transformation -- for example, adding a skew, or considering the interpolated version of a DJ copula family.~~ A *symmetry* is a re-orientation of a copula by reflection and/or permutation.
+-   **Operations**: include things like relaxing, shrinking, or mutating the parameter space, similar to how a data frame might be filtered, expanded, or mutated.
+-   **Closures?**: Possibly include transformations of a copula to another copula. For example, a threshold copula (as in the DJ paper), or extreme value copula, or skew copula.
 
 This package cannot include a comprehensive list of any one of these. The user should be allowed to make their own. But this package ought to start with the basics of these.
 
