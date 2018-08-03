@@ -14,7 +14,14 @@
 #'   given the first (respectively).}
 #' }
 #' If symmetries are relevant, the above applies to
-#' direction=1, major_axis=1, and minor_axis=1 (whichever are relevant).
+#' dependence=1, major_axis=1, and minor_axis=1 (whichever are relevant).
+#'
+#' Important! "Major Axis" is 1 if there's more mass on the right.
+#' This is because I'd like to think of the copula in terms of its
+#' principal component axes.
+#'
+#' Similarly, "Minor Axis" is 1 if there's more mass on the upper part of
+#' the copula.
 #'
 #' These objects rely heavily on functions from the package CopulaModel,
 #' hence why coperate Depends on this package.
@@ -28,7 +35,7 @@ cop_frk <- list(
     qcondcop  = list(qcondfrk, qcondfrk),
     cparspace = data.frame(theta=c(-Inf, Inf)),
     symmspace = expand.grid(family     = "Frank",
-                            direction  = c(1, -1),
+                            dependence  = c(1, -1),
                             major_axis = 0,
                             minor_axis = 0)
 )
@@ -43,23 +50,8 @@ cop_gum <- list(
     qcondcop  = list(qcondgum, qcondgum),
     cparspace = data.frame(theta=c(-Inf, Inf)),
     symmspace = expand.grid(family     = "Gumbel",
-                            direction  = c(1, -1),
+                            dependence  = c(1, -1),
                             major_axis = c(1, -1),
                             minor_axis = 0)
 )
 
-## Global lists
-
-all_symms <- rbind(cop_frk$symmspace, cop_gum$symmspace)
-
-fam_properties <- data.frame(
-    family=c("Frank", "Gumbel"),
-    abbr_name=c("frk", "gum"),
-    upper_tail_dep=c(0,1),
-    lower_tail_dep=c(0,0))
-
-fam_cparspace <- list(
-    Frank = data.frame(theta=c(-Inf,Inf)),
-    Gumbel= data.frame(theta=c(1,Inf)),
-    IG    = data.frame(theta=c(0,Inf), k=c(1,Inf))
-)
