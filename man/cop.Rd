@@ -4,12 +4,15 @@
 \name{cop_frk}
 \alias{cop_frk}
 \alias{cop_gum}
+\alias{cop_gau}
 \title{Built-In Bivariate Parametric Copula Families}
 \format{An object of class \code{list} of length 7.}
 \usage{
 cop_frk
 
 cop_gum
+
+cop_gau
 }
 \description{
 These objects contain information about bivariate
@@ -26,7 +29,14 @@ Each is a list containing the following components:
   given the first (respectively).}
 }
 If symmetries are relevant, the above applies to
-direction=1, major_axis=1, and minor_axis=1 (whichever are relevant).
+dependence=1, major_axis=1, and minor_axis=1 (whichever are relevant).
+
+Important! "Major Axis" is 1 if there's more mass on the right.
+This is because I'd like to think of the copula in terms of its
+principal component axes.
+
+Similarly, "Minor Axis" is 1 if there's more mass on the upper part of
+the copula.
 
 These objects rely heavily on functions from the package CopulaModel,
 hence why coperate Depends on this package.

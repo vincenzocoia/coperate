@@ -1,22 +1,29 @@
 #' Restrict a copula family
 #'
-#' @details
-#' Other identifiers you can specify besides those listed in the arguments:
+#' Restricts the parameter space of a copula class.
 #'
-#' - \code{cpar}, corresponding to the canonical copula parameters. For
-#'    example, theta < 10.
+#' @param cop Object of class \code{copula}.
+#' @param ... Logical statement to perform restriction
+#'
+#' @details
+#' Names of the canonical copula parameters
 #'
 #' @export
-restrict <- function(cop, dependence=NULL, ...) {
-    if (!is.null(dependence)) {
-        if (tolower(dependence)=="positive") {
-            cop$symmspace <- subset(cop$symmspace, dependence==1)
-        } else if (tolower(dependence)=="negative") {
-            cop$symmspace <- subset(cop$symmspace, dependence==-1)
-        }
-    }
-    # If cpar is in elipses:
-    cop$cparspace
+restrict_symm <- function(cop, ...) {
+    df <- cop$symmspace
+    dots <- rlang::enexprs(...)
+    nd <- length(dots)
+    if (nd == 0) return(df)
+    rows <- eval(dots[[1]], df)
+    if (nd > 1) for (i in 2:nd) rows <- rows & eval(dots[[i]], df)
+    cop$symmspace <- df
 }
 
-use_vignette("copula_families")
+#' @export
+restrict_cpar <- function(cop, ...){
+    dots <- rlang::enexprs(...)
+    cop$cparspace <- c(cop$cparspace, dots)
+    cop
+}
+
+

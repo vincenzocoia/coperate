@@ -33,9 +33,9 @@ cop_frk <- list(
     logdcop   = logdfrk,
     pcondcop  = list(pcondfrk, pcondfrk),
     qcondcop  = list(qcondfrk, qcondfrk),
-    cparspace = data.frame(theta=c(-Inf, Inf)),
+    cparspace = rlang::exprs(theta = -Inf < theta && theta<Inf),
     symmspace = expand.grid(family     = "Frank",
-                            dependence  = c(1, -1),
+                            dependence = c(1, -1),
                             major_axis = 0,
                             minor_axis = 0)
 )
@@ -48,10 +48,24 @@ cop_gum <- list(
     logdcop   = logdgum,
     pcondcop  = list(pcondgum, pcondgum),
     qcondcop  = list(qcondgum, qcondgum),
-    cparspace = data.frame(theta=c(-Inf, Inf)),
+    cparspace = rlang::exprs(theta = -Inf < theta && theta<Inf),
     symmspace = expand.grid(family     = "Gumbel",
-                            dependence  = c(1, -1),
+                            dependence = c(1, -1),
                             major_axis = c(1, -1),
                             minor_axis = 0)
 )
 
+#' @rdname cop
+#' @export
+cop_gau <- list(
+    pcop      = pbvncop,
+    dcop      = dbvncop,
+    logdcop   = logdbvncop,
+    pcondcop  = list(pcondbvncop, pcondbvncop),
+    qcondcop  = list(qcondbvncop, qcondbvncop),
+    cparspace = rlang::exprs(rho = 0 < rho && rho < 1),
+    symmspace = expand.grid(family     = "Gaussian",
+                            dependence = c(1, -1),
+                            major_axis = 0,
+                            minor_axis = 0)
+)
