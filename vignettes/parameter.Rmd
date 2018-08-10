@@ -27,3 +27,5 @@ This is important to consider so that the copula family can match the:
 - skewness
 
 of the data. 
+
+## Formulas for Distributional Quantities under Different Symmetries

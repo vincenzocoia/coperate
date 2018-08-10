@@ -2,10 +2,24 @@
 % Please edit documentation in R/_cop.R
 \name{dcop}
 \alias{dcop}
-\title{Calculate Distributional Quantities of a Copula}
+\alias{pcop}
+\title{Calculate Copula Distributional Quantities}
 \usage{
 dcop(u, v, cpar)
+
+pcop(u, v, cpar)
+}
+\arguments{
+\item{u, v}{Values of the first and second copula variables, respectively.
+Vectorized so that either the lengths should match, or at least one has
+length 1.}
+
+\item{cpar}{Vector of value(s) of the canonical copula parameter(s).
+If unnamed, will use the order of parameters specified in \code{cop}.}
+
+\item{cop}{Object of class \code{copula} resolved to one symmetry. See details.}
 }
 \description{
-These functions compute
+These functions compute distributional quantities (pdf and cdf) of a resolved
+copula class.
 }
