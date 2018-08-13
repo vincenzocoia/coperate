@@ -9,6 +9,7 @@ The goal of `coperate` is to facilitate the modelling of parametric copula-based
 
 1.  providing an extensive built-in selection of parametric copula models;
 2.  creating user-defined parametric copula families (optionally);
+    - Should definitely be accounted for! For example, if there are copulas in other R packages that someone is using, they should be able to translate that copula over. 
 3.  operating on the copula parameter space to restrict, relax, and alter the space; and
 4.  computing distributional quantities from a copula model,
 
