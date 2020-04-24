@@ -9,10 +9,20 @@ The goal of `coperate` is to facilitate the modelling of parametric copula-based
 
 1.  providing an extensive built-in selection of parametric copula models;
 2.  creating user-defined parametric copula families (optionally);
+    - Should definitely be accounted for! For example, if there are copulas in other R packages that someone is using, they should be able to translate that copula over. 
 3.  operating on the copula parameter space to restrict, relax, and alter the space; and
 4.  computing distributional quantities from a copula model,
 
 This package intentionally does not include model-fitting functionality, such as MLE and CNQR, but is intended to be useful as a back-end for such fitting.
+
+The entities that this package deal with can be usefully categorized as *copulas*, *parameters*, and *operations*.
+
+-   **Copulas**: A bundle of properties that describe a copula. Things like kendall's tau, CCEVI, tail dependence, even the cdf at a point can be considered a property. Not all properties uniquely define a copula, but the "canonical" ones will ought to be distribution-related functions. Ideally, other properties will be defined, like kendall's tau (even density), but could be calculated if need be
+-   **Parameters**: Variables that disambiguate a copula. Includes family name, canonical parameters, symmetries~~, and possibly extensions~~. A *family* is a collection of copulas continuously related, indexed by a continuous set of *canonical parameters*. ~~This family might be *extended* by some parametric transformation -- for example, adding a skew, or considering the interpolated version of a DJ copula family.~~ A *symmetry* is a re-orientation of a copula by reflection and/or permutation.
+-   **Operations**: include things like relaxing, shrinking, or mutating the parameter space, similar to how a data frame might be filtered, expanded, or mutated.
+-   **Closures?**: Possibly include transformations of a copula to another copula. For example, a threshold copula (as in the DJ paper), or extreme value copula, or skew copula.
+
+This package cannot include a comprehensive list of any one of these. The user should be allowed to make their own. But this package ought to start with the basics of these.
 
 0. Copula class
 ---------------
@@ -46,6 +56,15 @@ cop\_ig and cop\_igl have precision problems that need fixing.
 
 -   Implement *lower* bound for Newton-Raphson in helper function: just replace p with sqrt(p) and I'll get a lower bound. Why? Does it solve the problem of inaccuracies when k is small?
 -   The cnstr\_H function's inverse could probably use improvements through Newton-Raphson, similar to what I did with the helper function.
+
+Building a model could look something like this:
+
+    copula_model(family %in% c("Frank", "Gumbel"))
+    copula_model(family %in% c("Frank", "Gumbel"), dependence=1)
+    copula_model(dependence=1, minor=1, ncpar=1) %>% 
+        relax(family="BB1") # Adds BB1 family
+    ## Alternatively:
+    copula_model((dependence=1, minor=1, ncpar=1) | family="BB1")
 
 2. creating user-defined parametric copula families (optionally);
 -----------------------------------------------------------------
@@ -168,3 +187,20 @@ Future Ideas (hopefully not so distant)
 -   Instead of fitting the entire gamut of copula families, pre-select them according to some properties. Choose candidate copula families that are appropriate for the data.
     -   Based on tail dependence is one idea.
     -   Based on symmetry is another.
+
+Eventually, downstream packages/functions will exist, something like `mle()`, and `cnqr()`, so that we can just do:
+
+    my_model %>%
+        fit(mle, data=my_dat)
+
+Better, something like
+
+    my_model %>%
+        group_by(family) %>%
+        fit(mle, data=my_dat)
+
+...which fits to each group. Can then output things about the fitted models to aid in model selection, like adding the following pipe to the chain:
+
+    %>% mutate(nllh, ktau=..., ncpar=...)
+
+...to assist in model selection.

@@ -1,0 +1,12 @@
+---
+title: "Described Parametric Copula Families"
+author: "Vincenzo Coia"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Described Parametric Copula Families}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This vignette mathematically describes parametric copula families in the form that `coperate` considers "canonical". This is primarily intended to reduce ambiguity in the `coperate` package. 
