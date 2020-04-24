@@ -1,22 +1,18 @@
 ---
-title: "The Dihedral-Complete Copula Parameter space"
-author: "Vincenzo Coia"
-date: "`r Sys.Date()`"
+title: "Dihedral Complete Copula Families"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Dihedral Complete Copula Families}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include = FALSE}
+```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 ```
-
-The point of this vignette is to explain the dihedral parameter space of a copula family, and the group algebra involved with rotations, reflections, and permutations. 
 
 The "dihedral completion" of a parametric copula family is the set of all copulas obtained by reflection and permutation. Some families, such as the Gaussian copula family with dimension $d$, are already dihedral-complete, because any combination of reflection and permutation applied to a copula member will result in another member (for example, a permutation of bivariate gaussian is obtained by taking the negative of the correlation parameter).
 
