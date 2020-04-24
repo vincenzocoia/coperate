@@ -1,1 +1,14 @@
 destination: docs
+
+home:
+  title: coperate
+  description: Build a dependence model using copulas.
+
+navbar:
+  right:
+   - icon: fa-github
+     href: https://github.com/vincenzocoia/coperate
+
+authors:
+  Vincenzo Coia:
+    href: http://vincenzocoia.com
