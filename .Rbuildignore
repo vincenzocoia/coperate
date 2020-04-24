@@ -1,5 +1,12 @@
-^.*\.Rproj$
+^coperate\.Rproj$
 ^\.Rproj\.user$
+^LICENSE\.md$
 ^README\.Rmd$
-^README-.*\.png$
+^cran-comments\.md$
+^\.github$
 ^\.travis\.yml$
+^codecov\.yml$
+^\.covrignore$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
