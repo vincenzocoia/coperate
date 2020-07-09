@@ -19,6 +19,110 @@ knitr::opts_chunk$set(
 library(coperate)
 ```
 
+
+```
+a <- cop_gum(2.3)
+eval_cdf(a, u = 0.3, v = 0.6)
+eval_cdf(a, at = list(0.3, 0.6))
+
+condition_x(a, x = 0.6) %>% 
+    eval_quantile(0.7)
+condition_y(a, y = 0.2) %>% 
+    realize()
+realize(a, n = 100)
+```
+
+When dealing, with multivariate distributions, there are some special generics for manipulating distributions:
+
+```
+# marginalize() is like "dplyr::select()"
+marginalize(pvariate_dist, .y)
+marginalize(pvariate_dist, starts_with("Sepal"))
+
+# condition() is like `dplyr::filter()`:
+condition(pvariate_dist, .y == 3)
+condition(pvariate_dist, .y > 3)
+
+# or perhaps condition() should be more like `dplyr::mutate()`:
+condition(pvariate_dist, .y = 3)
+
+
+```
+
+
+When more than one variable is involved, need a way to indicate what dimension you're talking about. `purrr` is the inspiration when variables are not necessarily named, and `dplyr`'s tidyselect is the inspiration when variables are named.
+
+```
+# Distributions, when associated with data, are like models.
+#  As such, they deserve to have `predict()`-like functions:
+
+b <- dst_norm(mean = 0) %>% 
+    fit_to(residuals(model))
+b
+#> Gaussian Distribution
+#>
+#> Parameters:
+#> mean     variance
+#>    0      12.5463
+#>
+#> Variables:
+#> residuals(model)
+#>     "continuous"
+
+dst_norm() %>% 
+    fit_to(mpg, data = mtcars)
+#> Gaussian Distribution
+#>
+#> Parameters:
+#>     mean     variance
+#>  20.0906      36.3241
+#>
+#> Variables:
+#>         mpg
+#> "continuous"
+
+# Still works, but only assigns the variable name:
+dst_norm(0, 1) %>% 
+    fit_to(mpg, data = mtcars) %>% 
+    eval_cdf(at = mtcars)
+
+# set_marginal() is perhaps specific to copulas, with
+#   reset_marginal() more general.
+cop_gum(delta = 2.3) %>% 
+    set_marginal(x = dst_norm(4, 5))
+
+fourvariate_copula %>% 
+    fit_to(mpg, hp, x3, x4, data = mtcars) %>% 
+    set_marginal(hp = dst_norm(4, 5),
+                 x4 = dst_gpd(4, 1, 2))
+
+# Can use tidy select.
+# No need for scoped variants anymore, with the
+#  use of `across()` in dplyr 1.0.0:
+fourvariate_copula %>% 
+    fit_to(disp:wt, data = mtcars) %>% 
+    set_marginal(
+       across(disp:hp, dst_norm(0, 1),
+       wt = dst_emp(wt))
+    )
+
+# This one applies a function to each column:
+fourvariate_copula %>% 
+    set_marginal(across(everything(), dst_emp))
+
+# purrr-style syntax allowed:
+fourvariate_copula %>% 
+    set_marginal(..4 = dst_norm(0, 1),
+                 ..2 = dst_emp(..2))
+
+pvar_dist %>% 
+    get_marginal(..1, ..2)
+
+pvar_dist %>% 
+    get_marginal(starts_with("Sepal"))
+```
+
+
 ## 0\. Copula class
 
 Define a `bicop` object (start bivariate!), which represents a (collection of?) copula models.
