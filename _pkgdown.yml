@@ -2,7 +2,7 @@ destination: docs
 
 home:
   title: coperate
-  description: Build a dependence model using copulas.
+  description: Manipulate bivariate copula models
 
 navbar:
   right:
